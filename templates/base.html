@@ -1,0 +1,37 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- Link to your static files (CSS, JavaScript, etc.) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <!-- Additional CSS or meta tags can be added here -->
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Your navigation links can go here -->
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'category_list' %}">Categories</a></li>
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+                <li><a href="{% url 'expense_list' %}">Expenses</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content block that child templates will override -->
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <!-- Your footer content can go here -->
+        <p>&copy; {{ year }} Your Company</p>
+    </footer>
+    <!-- Optional JavaScript -->
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

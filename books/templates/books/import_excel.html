@@ -1,0 +1,18 @@
+<!-- templates/import_excel.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Import Excel File</title>
+</head>
+<body>
+    <h2>Import Excel File</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="excel_file" accept=".xls,.xlsx" required>
+        <br><br>
+        <button type="submit">Upload File</button>
+    </form>
+</body>
+</html>

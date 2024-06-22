@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expenses List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/expense_list.css' %}">
+    <style>
+        /* Styles inclus ici */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expenses List</h1>
+        <a href="{% url 'expense_create' %}" class="add-expense">Add New Expense</a>
+        <ul>
+            {% for expense in page_obj %}
+            <li>
+                <div class="expense-details">
+                    <span>{{ expense.book.title }} - {{ expense.description }} - ${{ expense.amount }}</span>
+                    <span class="expense-actions">
+                        <a href="{% url 'expense_update' expense.pk %}">Edit</a>
+                        <a href="{% url 'expense_delete' expense.pk %}">Delete</a>
+                    </span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>

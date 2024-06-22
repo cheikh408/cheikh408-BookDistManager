@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/categories_list.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .add-category {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .add-category:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .category-name {
+            font-weight: bold;
+        }
+        .category-actions a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .category-actions a:hover {
+            text-decoration: underline;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .step-links {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .step-links a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .step-links a:hover {
+            text-decoration: underline;
+        }
+        .step-links .current {
+            margin: 0 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Categories List</h1>
+    <div class="container">
+        <a href="{% url 'category_create' %}" class="add-category">Add New Category</a>
+        <ul>
+            {% for category in page_obj %}
+            <li>
+                <span class="category-name">{{ category.name }}</span>
+                <span class="category-actions">
+                    <a href="{% url 'category_update' category.pk %}">Edit</a>
+                    <a href="{% url 'category_delete' category.pk %}">Delete</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
