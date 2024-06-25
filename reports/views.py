@@ -4,7 +4,8 @@ from categories.models import BookCategory
 from books.models import Book
 from django.db.models import Sum
 
-def expense_report(request):
+
+def expense_report_view(request):
     categories = BookCategory.objects.all()
     report_data = []
 
