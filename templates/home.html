@@ -7,32 +7,41 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Welcome to Rumi Press</h1>
-    <p>Manage your book distribution process with ease.</p>
-    <nav>
-        <ul>
-            <li><a href="{% url 'category_list' %}">Categories</a></li>
-            <li><a href="{% url 'book_list' %}">Books</a></li>
-            <li><a href="{% url 'expense_list' %}">Expenses</a></li>
-            <li><a href="{% url 'expense_report_view' %}">Expense Report</a></li>
-        </ul>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="{% url 'category_list' %}" class="navbar-link">Categories</a></li>
+                <li class="navbar-item"><a href="{% url 'book_list' %}" class="navbar-link">Books</a></li>
+                <li class="navbar-item"><a href="{% url 'expense_list' %}" class="navbar-link">Expenses</a></li>
+                <li class="navbar-item"><a href="{% url 'expense_report_view' %}" class="navbar-link">Expense Report</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <h2>Import Excel File</h2>
-    
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="excel_file" accept=".xls,.xlsx" required>
-        <br><br>
-        <button type="submit">Upload File</button>
-    </form>
+    <div class="container">
+        <div class="card">
+            <h3>Welcome to Rumi Press</h3>
+            <p>Manage your book distribution process with ease.</p>
+            <h2>Import Excel File</h2>
+            <form method="post" enctype="multipart/form-data" class="form">
+                {% csrf_token %}
+                <div class="drop_box">
+                    <h4>Drag & Drop to Upload File</h4>
+                    <p>or click to select file excel</p>
+                    <input type="file" name="excel_file" accept=".xls,.xlsx" required>
+                </div>
+                <br>
+                <button type="submit" class="btn">Upload File</button>
+            </form>
 
-    <div class="message">
-        {% if success_message %}
-            <p class="success">{{ success_message }}</p>
-        {% elif error_message %}
-            <p class="error">{{ error_message }}</p>
-        {% endif %}
+            <div class="message">
+                {% if success_message %}
+                    <p class="success">{{ success_message }}</p>
+                {% elif error_message %}
+                    <p class="error">{{ error_message }}</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>
